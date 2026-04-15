@@ -1,0 +1,62 @@
+Title: Docker Image Based Web Application
+
+Objective
+To create and deploy a web application using Docker.
+
+Tools Used
+- Docker
+- Python
+- Flask
+
+Step 1: Create Web Application
+- Created a Python Flask application (app.py).
+- The app displays a simple message on the browser.
+
+Source Code (app.py)
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Hello, this is my Dockerized Web App!"
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
+
+Step 2: Create Requirements File
+requirements.txt
+flask
+
+Step 3: Create Dockerfile
+- Used Python base image.
+- Installed dependencies.
+- Copied project files.
+- Defined startup command.
+
+Dockerfile
+FROM python:3.10
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+COPY . .
+CMD ["python", "app.py"]
+
+Step 4: Build Docker Image
+Command used:
+docker build -t my-web-app .
+
+Step 5: Run Docker Container
+Command used:
+docker run -p 5000:5000 my-web-app
+
+Step 6: Output
+- The application runs on:
+http://localhost:5000
+
+- Output:
+Hello, this is my Dockerized Web App!
+
+Conclusion
+Successfully created and deployed a Docker-based web application.
+
+Github repo here: https://github.com/KshKnsl/docker-demo
